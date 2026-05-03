@@ -84,6 +84,4 @@ When a pipeline fails (e.g. safety block or unexpected exception), we yield the 
 
 ## Defence Video
 
-[Insert unlisted YouTube link here]
-
-*(Note: Link will be added within 24 hours of final commit as per assignment rules).*
+[Video Submission (Google Drive)](https://drive.google.com/file/d/1PxHV_bShE8m-uQeDmS4emeiU2q5V2Hei/view?usp=drive_link)
