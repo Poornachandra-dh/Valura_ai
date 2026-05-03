@@ -32,11 +32,11 @@ async def handle_portfolio_health(intent: str, entities: dict, user_data: dict) 
             "disclaimer": "This is not investment advice. Please consult a qualified professional before making any investment decisions.",
             "status": "complete"
         }
-        yield f"data: {json.dumps(response_obj)}\n\n"
+        yield json.dumps(response_obj)
         return
 
     # Let's stream a progress update
-    yield f"data: {json.dumps({'status': 'processing', 'message': 'Calculating concentration risk...'})}\n\n"
+    yield json.dumps({'status': 'processing', 'message': 'Calculating concentration risk...'})
     
     # Calculate Concentration using cost basis
     total_cost = sum(p["quantity"] * p["avg_cost"] for p in positions)
@@ -51,7 +51,7 @@ async def handle_portfolio_health(intent: str, entities: dict, user_data: dict) 
     elif top_pos_pct > 15 or top_3_pct > 40:
         flag = "medium"
 
-    yield f"data: {json.dumps({'status': 'processing', 'message': 'Fetching live market prices...'})}\n\n"
+    yield json.dumps({'status': 'processing', 'message': 'Fetching live market prices...'})
 
     # Fetch live prices concurrently
     loop = asyncio.get_event_loop()
@@ -125,4 +125,4 @@ async def handle_portfolio_health(intent: str, entities: dict, user_data: dict) 
         "status": "complete"
     }
 
-    yield f"data: {json.dumps(response_obj)}\n\n"
+    yield json.dumps(response_obj)

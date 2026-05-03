@@ -14,4 +14,4 @@ async def handle_stub(agent_name: str, intent: str, entities: dict) -> str:
     }
     
     # We yield a single chunk for the stub, formatted as JSON data
-    yield f"data: {json.dumps(response_obj)}\n\n"
+    yield json.dumps(response_obj)

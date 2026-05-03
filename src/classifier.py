@@ -33,7 +33,7 @@ class ClassificationResult(BaseModel):
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 def get_client():
     return openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY", "mock-key"))
