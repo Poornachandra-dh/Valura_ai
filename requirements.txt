@@ -25,7 +25,7 @@ pytest-mock>=3.14.0
 
 # =============================================================================
 # Suggested additions (add only what you actually use):
-#   - yfinance              — easy market data (stretch alternative: an MCP server)
+yfinance>=0.2.37        # For fetching live market data in Portfolio Health Agent
 #   - pandas / numpy        — if your portfolio math gets non-trivial
 #   - asyncpg / aiosqlite   — only if you persist sessions in a real DB
 #   - tenacity              — if you implement retry policies
