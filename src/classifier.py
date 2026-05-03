@@ -31,13 +31,20 @@ class ClassificationResult(BaseModel):
     entities: Entities = Field(default_factory=Entities)
     informational_safety_verdict: str = Field(description="Informational safety verdict")
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 def get_client():
     return openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY", "mock-key"))
 
-async def classify_intent(query: str, history: List[dict] = None) -> ClassificationResult:
+async def classify_intent(query: str, history: List[dict] = None, llm_mock: dict = None) -> ClassificationResult:
     """
     Calls the LLM to classify intent, extract entities and route to the correct agent.
     """
+    if llm_mock:
+        return ClassificationResult.model_validate(llm_mock)
+
     client = get_client()
     
     schema = ClassificationResult.model_json_schema()
@@ -78,6 +85,7 @@ async def classify_intent(query: str, history: List[dict] = None) -> Classificat
         content = response.choices[0].message.content
         return ClassificationResult.model_validate_json(content)
     except Exception as e:
+        print(f"\n[CLASSIFIER ERROR] LLM failed: {str(e)}\nMake sure your OPENAI_API_KEY is set in .env!\n")
         return ClassificationResult(
             intent=f"Failed to classify: {str(e)}",
             agent="general_query",
